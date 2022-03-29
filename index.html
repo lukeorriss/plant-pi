@@ -110,7 +110,8 @@
         setTimeout(function(){
             $(document).ready(function(){
                 for (i = 0; i < storedLogs.length; i++) {
-                    console.log(JSON.stringify(JSON.parse(storedLogs[i])))
+                    var jsonSplit = storedLogs[i].split('"');
+                    console.log(jsonSplit[1])
                 }
             })
         }, 500)
