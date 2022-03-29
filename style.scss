@@ -1,0 +1,57 @@
+* {
+    font-size: 17px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 400;
+}
+.nav button i {
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+.nav button {
+    background: transparent;
+    border: none;
+    color: rgb(177, 177, 177);
+    transition: all .3s ease;
+}
+.nav button:hover {
+    color: white;
+}
+.nav .nav-link:focus {
+    color: white;
+}
+.nav button + .active {
+    color: white;
+}
+.navbar .container-fluid .nav-item {
+    padding-right: 20px;
+}
+.tab-pane {
+    margin: 20px;
+}
+.header {
+    background: rgb(233, 233, 233);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    i {
+        margin-right: 10px;
+    }
+    p {
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+}
+.main-content {
+    margin-top: 20px;
+}
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    button {
+        min-width: 250px;
+    }
+}
