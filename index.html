@@ -147,8 +147,8 @@ return Math.floor(seconds) + " seconds";
                     storedData.push(ldata);
                 }
                 var last = storedData[storedData.length - 1];
-                console.log(last.date)
-                console.log(timeSince(last.date.replace('/', "")))
+                var x = last.date.replace("/", "")
+                // console.log(timeSince(last.date.replace('/', "")))
                 $('#log').append()
                 $('#date').append(last.date);
                 $('#time').append(last.time);
