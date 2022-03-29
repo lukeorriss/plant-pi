@@ -92,17 +92,11 @@
    
     
     <script>
-        var readLogs = [];
         $.get('/bonsai/logs/monitoring/log.txt', function(data) {
             var x = data.split(",\n");
-	    readLogs.push(x);
-
-	    for (i = 0; i < readLogs.length; i++){
-		if (readLogs[i] != "") {
-			console.log(readLogs[i]);
-		}
-		
-	    }
+	        
+            console.log(x.length);
+            
         }, 'text');
 
        
