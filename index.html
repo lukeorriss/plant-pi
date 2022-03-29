@@ -93,7 +93,7 @@
     <script>
         var readLogs = [];
         $.get('/home/pi/Desktop/bonsai/logs/monitoring/log.txt', function(data) {
-            console.log(JSON.parse(JSON.stringify(data)))
+            readLogs.push(data)
         }, 'text');
     </script>
 </body>
