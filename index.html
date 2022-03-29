@@ -93,11 +93,19 @@
     
     <script>
         var readLogs = [];
-        $.get('../home/pi/Desktop/bonsai/logs/monitoring/log.txt', function(data) {
-            readLogs.push(data)
-        }, 'json');
+        $.get('/bonsai/logs/monitoring/log.txt', function(data) {
+            var x = data.split(",\n");
+	    readLogs.push(x);
 
-        console.log(readLogs)
+	    for (i = 0; i < readLogs.length; i++){
+		if (readLogs[i] != "") {
+			console.log(readLogs[i]);
+		}
+		
+	    }
+        }, 'text');
+
+       
     </script>
 </body>
 </html>
