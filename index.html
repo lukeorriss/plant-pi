@@ -123,11 +123,11 @@
                     storedData.push(ldata);
                 }
                 console.log(storedData[storedData.length - 1]);
-                $('#date').append(storedData["date"]);
-                $('#time').append(storedData["time"]);
-                $('#temp').append(storedData["temp"]);
-                $('#humidity').append(storedData["hum"]);
-                $('#iteration').append(storedData["stamp"]);
+                $('#date').append(storedData.date);
+                $('#time').append(storedData.time);
+                $('#temp').append(storedData.temp);
+                $('#humidity').append(storedData.hum);
+                $('#iteration').append(storedData.hum);
 
                 if (storedData["alert"] == 1) {triggerAlert = "On";} else {triggerAlert = "Off"}
                 if (storedData["soil"] == 1) {soilAlert = "Needs Water";} else {soilAlert = "All Good"}
