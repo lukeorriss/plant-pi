@@ -49,7 +49,15 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="header"><p><i class="fa-solid fa-house"></i>Home</p></div>
             <div class="main-content">
-                <p id="date">Most Recent Log: </p>
+                <p id="log">Most Recent Log: x seconds ago...</p>
+                <p id="date"></p>
+                <p id="time"></p>
+                <p id="temp"></p>
+                <p id="humidity"></p>
+                <p id="iteration"></p>
+                <p id="alert"></p>
+                <p id="soil"></p>
+                
             </div>
         </div>
 
@@ -114,7 +122,18 @@
                     var ldata = JSON.parse(storedLogs[i]);
                     storedData.push(ldata);
                 }
-                console.log(storedData[storedData.length - 1])
+                console.log(storedData[storedData.length - 1]);
+                $('#date').text(storedData["date"]);
+                $('#time').text(storedData["time"]);
+                $('#temp').text(storedData["temp"]);
+                $('#humidity').text(storedData["hum"]);
+                $('#iteration').text(storedData["stamp"]);
+
+                if (storedData["alert"] == 1) {triggerAlert = "On";} else {triggerAlert = "Off"}
+                if (storedData["soil"] == 1) {soilAlert = "Needs Water";} else {soilAlert = "All Good"}
+
+                $('#alert').text(triggerAlert);
+                $('#soil').text(soilAlert);
             })
         }, 500)
        
