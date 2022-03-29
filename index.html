@@ -122,15 +122,15 @@
                     var ldata = JSON.parse(storedLogs[i]);
                     storedData.push(ldata);
                 }
-                console.log(storedData[storedData.length - 1]);
-                $('#date').append(storedData.date);
-                $('#time').append(storedData.time);
-                $('#temp').append(storedData.temp);
-                $('#humidity').append(storedData.hum);
-                $('#iteration').append(storedData.hum);
+                var last = storedData[storedData.length - 1];
+                $('#date').append(last.date);
+                $('#time').append(last.time);
+                $('#temp').append(last.temp);
+                $('#humidity').append(last.hum);
+                $('#iteration').append(last.hum);
 
-                if (storedData["alert"] == 1) {triggerAlert = "On";} else {triggerAlert = "Off"}
-                if (storedData["soil"] == 1) {soilAlert = "Needs Water";} else {soilAlert = "All Good"}
+                if (last["alert"] == 1) {triggerAlert = "On";} else {triggerAlert = "Off"}
+                if (last["soil"] == 1) {soilAlert = "Needs Water";} else {soilAlert = "All Good"}
 
                 $('#alert').append(triggerAlert);
                 $('#soil').append(soilAlert);
