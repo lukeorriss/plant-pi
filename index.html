@@ -48,6 +48,9 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="header"><p><i class="fa-solid fa-house"></i>Home</p></div>
+            <div class="main-content">
+                <p id="date">Most Recent Log: </p>
+            </div>
         </div>
 
 
@@ -92,17 +95,23 @@
    
     
     <script>
+        storedLogs = [];
         $.get('/bonsai/logs/monitoring/log.txt', function(data) {
             var localData = data.split(",\n");
 	        
             for (i = 0; i < localData.length; i++) {
                 if (localData[i] != "") {
-                    console.log(localData[i]);
+                    storedLogs.push(localData[i])
                 }
             }
             
         }, 'text');
 
+        setTimeout(function(){
+            $(document).ready(function(){
+                console.log("Stored", storedLogs)
+            })
+        }, 500)
        
     </script>
 </body>
