@@ -93,9 +93,13 @@
     
     <script>
         $.get('/bonsai/logs/monitoring/log.txt', function(data) {
-            var x = data.split(",\n");
+            var localData = data.split(",\n");
 	        
-            console.log(x.length);
+            for (i = 0; i < localData.length; i++) {
+                if (localData[i] != "") {
+                    console.log(localData[i]);
+                }
+            }
             
         }, 'text');
 
