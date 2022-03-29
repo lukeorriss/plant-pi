@@ -49,7 +49,7 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="header"><p><i class="fa-solid fa-house"></i>Home</p></div>
             <div class="main-content">
-                <p id="log">Most Recent Log: x seconds ago...</p>
+                <p id="log">Most Recent Log: </p>
                 <p id="date">Date: </p>
                 <p id="time">Time: </p>
                 <p id="temp">Temperature: </p>
@@ -117,12 +117,39 @@
 
         setTimeout(function(){
             $(document).ready(function(){
+                function timeSince(date) {
+var seconds = Math.floor((new Date() - date) / 1000);
+var interval = seconds / 31536000;
+if (interval > 1) {
+  return Math.floor(interval) + " years";
+}
+interval = seconds / 2592000;
+if (interval > 1) {
+  return Math.floor(interval) + " months";
+}
+interval = seconds / 86400;
+if (interval > 1) {
+  return Math.floor(interval) + " days";
+}
+interval = seconds / 3600;
+if (interval > 1) {
+  return Math.floor(interval) + " hours";
+}
+interval = seconds / 60;
+if (interval > 1) {
+  return Math.floor(interval) + " minutes";
+}
+return Math.floor(seconds) + " seconds";
+}
                 storedData = [];
                 for (i = 0; i < storedLogs.length; i++) {
                     var ldata = JSON.parse(storedLogs[i]);
                     storedData.push(ldata);
                 }
                 var last = storedData[storedData.length - 1];
+                console.log(last.date)
+                console.log(timeSince(last.date))
+                $('#log').append()
                 $('#date').append(last.date);
                 $('#time').append(last.time);
                 $('#temp').append(last.temp);
