@@ -109,14 +109,12 @@
 
         setTimeout(function(){
             $(document).ready(function(){
+                storedData = [];
                 for (i = 0; i < storedLogs.length; i++) {
                     var ldata = JSON.parse(storedLogs[i]);
-                    var last = (ldata.length - 1)
-                    var lastData = ldata[last];
-                    console.log(lastData)
-                    
-                    
+                    storedData.push(ldata);
                 }
+                console.log(storedData[storedData.length - 1])
             })
         }, 500)
        
