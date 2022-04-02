@@ -16,7 +16,22 @@ def get_plant_update():
     today = datetime.now()
     d1 = today.strftime("%d/%m/%Y")
     t1 = today.strftime("%H:%M:%S")
-    ldata = {"result":"success", "date": [d1], "time": [t1]}
+
+    temp = 65.45
+    hum = 59.60
+
+    def get_temp():
+        return temp
+    def get_hum():
+        return hum
+
+    temp = temp + 2
+    hum = hum + 2
+
+    get_temperature = get_temp()
+    get_humidity = get_hum()
+
+    ldata = {"result":"success", "date": [d1], "time": [t1], "hum":str(get_humidity), "temp":str(get_temperature)}
     f = open("./api_logs/log.txt", "a")
     f.write("{Date:" + d1 + ", Time:" + t1 + ", Call:" + str(request) + "}\n")
     f.close()
