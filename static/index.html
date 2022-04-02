@@ -23,9 +23,11 @@
 </head>
 <body>
    
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Plant Pi</a>
+            <a class="navbar-brand" href="#">
+                <img src="favicon.ico" class="mr-4" style="width: 50px; height: auto;" alt="">
+                Plant Pi</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -49,6 +51,9 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="header"><p><i class="fa-solid fa-house"></i>Home</p></div>
             <div class="main-content">
+                <form action="" id="get_update">
+                    <button type="submit" class="btn btn-primary">Force Update</button>
+                </form>
                 <p id="log">Most Recent Log: </p>
                 <p id="date">Date: </p>
                 <p id="time">Time: </p>
@@ -57,7 +62,6 @@
                 <p id="iteration">Iteration: </p>
                 <p id="alert">Alert: </p>
                 <p id="soil">Moisture: </p>
-                
             </div>
         </div>
 
@@ -76,7 +80,18 @@
 
         <div class="tab-pane fade" id="nav-logs" role="tabpanel" aria-labelledby="nav-logs-tab">
             <div class="header"><p><i class="fa-solid fa-folder"></i>Logs</p></div>
-
+            Database Table
+            <ul>
+                <li>Log Number</li>
+                <li>Date</li>
+                <li>Time</li>
+                <li>Temperature</li>
+                <li>Humidity</li>
+                <li>Moisture Level</li>
+                <li>Alerts</li>
+                <li>...</li>
+                <li>...</li>
+            </ul>
         </div>
 
 
@@ -86,87 +101,78 @@
 
         <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
             <div class="header"><p><i class="fa-solid fa-gears"></i>Settings</p></div>
-            <div class="main-content">
+            <div class="main-content mc-flex">
                 <div class="options">
-                    <button class="btn btn-success m-1">Perform System Checks</button>
-                    <button class="btn btn-secondary m-1">Test Services</button>
-                    <button class="btn btn-secondary m-1">Test Sensors</button>
-                    <button class="btn btn-warning m-1">Restart Server</button>
-                    <button class="btn btn-warning m-1">Restart Plant Pi</button>
-                    <button class="btn btn-danger m-1">Shutdown Server</button>
-                    <button class="btn btn-danger m-1">Shutdown Plant Pi</button>
-                    is live updating?
+                    <button id="checksystem" class="btn btn-success m-1">Perform System Checks</button>
+                    <button id="checkserver" class="btn btn-success m-1">Check Server Access</button>
+                    <button id="testservices" class="btn btn-secondary m-1">Test Services</button>
+                    <button id="testsensors" class="btn btn-secondary m-1">Test Sensors</button>
+                    <button id="restartserver" class="btn btn-warning m-1">Restart Server</button>
+                    <button id="restartplantpi" class="btn btn-warning m-1">Restart Plant Pi</button>
+                    <button id="shutdownserver" class="btn btn-danger m-1">Shutdown Server</button>
+                    <button id="shutdownplantpi" class="btn btn-danger m-1">Shutdown Plant Pi</button>
+                </div>
+                <div class="output">
+                    <pre id="options-output"></pre>
                 </div>
             </div>
         </div>
     </div>
    
     
-    <script>
-        storedLogs = [];
-        $.get('/bonsai/logs/monitoring/log.txt', function(data) {
-            var localData = data.split(",\n");
-	        
-            for (i = 0; i < localData.length; i++) {
-                if (localData[i] != "") {
-                    storedLogs.push(localData[i])
-                }
-            }
-            
-        }, 'text');
+    <script>    
 
-        setTimeout(function(){
-            $(document).ready(function(){
-                function timeSince(date) {
-                var seconds = Math.floor((new Date() - date) / 1000);
-                console.log(new Date())
-                var interval = seconds / 31536000;
-                if (interval > 1) {
-                return Math.floor(interval) + " years";
-                }
-                interval = seconds / 2592000;
-                if (interval > 1) {
-                return Math.floor(interval) + " months";
-                }
-                interval = seconds / 86400;
-                if (interval > 1) {
-                return Math.floor(interval) + " days";
-                }
-                interval = seconds / 3600;
-                if (interval > 1) {
-                return Math.floor(interval) + " hours";
-                }
-                interval = seconds / 60;
-                if (interval > 1) {
-                return Math.floor(interval) + " minutes";
-                }
-                return Math.floor(seconds) + " seconds";
-                }
-                storedData = [];
-                for (i = 0; i < storedLogs.length; i++) {
-                    var ldata = JSON.parse(storedLogs[i]);
-                    storedData.push(ldata);
-                }
-                var last = storedData[storedData.length - 1];
-                var x = last.date.split("/");
-                var d = "" + x[2] + x[1] + x[0];
-                console.log(timeSince(d))
-                console.log(d)
-                $('#log').append()
-                $('#date').append(last.date);
-                $('#time').append(last.time);
-                $('#temp').append(last.temp);
-                $('#humidity').append(last.hum);
-                $('#iteration').append(last.stamp);
-
-                if (last["alert"] == 1) {triggerAlert = "On";} else {triggerAlert = "Off"}
-                if (last["soil"] == 1) {soilAlert = "Needs Water";} else {soilAlert = "All Good"}
-
-                $('#alert').append(triggerAlert);
-                $('#soil').append(soilAlert);
+    // Home
+        $('#get_update').on("submit", function(e){
+            e.preventDefault();
+            var ldata = {update_code: 777}
+            $.ajax({
+                type: 'POST',
+                url: '/api/plantpi/get_update',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify(ldata),
+                dataType: 'json',
             })
-        }, 500)
-       
+            .done(function(pdata) {
+                var ldata = pdata.data;
+                $('#date').text("Date: " + ldata.date)
+                $('#time').text("Time: " + ldata.time)
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                alert(errorThrown)
+            })
+        })
+
+        function worker() {
+            var ldata = {update_code: 777}
+            $.ajax({
+                type: 'POST',
+                url: '/api/plantpi/get_update',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify(ldata),
+                dataType: 'json',
+            })
+            .done(function(pdata) {
+                var ldata = pdata.data;
+                $('#date').text("Date: " + ldata.date)
+                $('#time').text("Time: " + ldata.time)
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                alert(errorThrown)
+            })
+            setTimeout(worker, 10000);
+            
+        };
+        worker()
+
+        $('#checksystem').click(function(){$('#options-output').text("Performing System Checks...")})
+        $('#checkserver').click(function(){$('#options-output').text("Performing Server Checks...")})
+        $('#testservices').click(function(){$('#options-output').text("Performing Service Tests...")})
+        $('#testsensors').click(function(){$('#options-output').text("Performing Sensor Tests...")})
+        $('#restartserver').click(function(){$('#options-output').text("Restarting Server...")})
+        $('#restartplantpi').click(function(){$('#options-output').text("Restarting Plant Pi...")})
+        $('#shutdownserver').click(function(){$('#options-output').text("Shutting Down Server...")})
+        $('#shutdownplantpi').click(function(){$('#options-output').text("Shutting Down Plant Pi...")})
     </script>
 </body>
 </html>

@@ -79,9 +79,34 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding-right: 40px;
+  height: 400px;
+  overflow-y: scroll;
+  border-right: 1px solid #e9e9e9;
 }
 
 .options button {
   min-width: 250px;
+}
+
+.mc-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.output {
+  min-height: 300px;
+  background-color: #e9e9e9;
+  border-radius: 10px;
+  width: 70%;
+  margin: auto;
+  padding: 10px;
 }
 /*# sourceMappingURL=style.css.map */

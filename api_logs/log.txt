@@ -1,0 +1,9 @@
+{Date:02/04/2022, Time:02:20:44, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:20:54, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:21:04, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:21:14, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:21:24, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:21:34, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:21:44, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:21:54, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
+{Date:02/04/2022, Time:02:22:04, Call:<Request 'http://localhost:5000/api/plantpi/get_update' [POST]>}
