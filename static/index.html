@@ -188,12 +188,9 @@
             })
             .done(function(pdata) {
                 var ldata = pdata.data;
-                console.log(ldata)
+                console.log(ldata.data[0])
                 
-                var data = ldata.data[0].split("?")
-                for (i =0; i < data.length; i++) {
-                    console.log(data[i])
-                }
+                
 
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
