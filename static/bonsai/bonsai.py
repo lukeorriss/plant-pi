@@ -57,12 +57,13 @@ if __name__ == "__main__":
     time_elapsed = 0
     while running:
         try:
+            # Get Current Date and Time
             date = datetime.now()
             currentDate = date.strftime("%d/%m/%Y")
             currentTime = date.strftime("%H:%M:%S")
-           
             getHumiture = readTemp()
 
+            # Try to read Temperature and Humidity
             try:
                 returnHumiture = getHumiture.split(" / ")
                 ltemp = returnHumiture[0]
@@ -72,48 +73,50 @@ if __name__ == "__main__":
             except AttributeError as error:
                 print("Couldn't determine split. Continuing...")
                 print(error)
-                e = open("logs/errors/log.txt", "a")
-                strToErrorWrite = "{date:%s, time: %s, error: %s},\n" % (currentDate, currentTime, error)
-                e.write(strToErrorWrite)
-                e.close()
+                with open("logs/errors/log.txt", "a") as e:
+                    strToErrorWrite = "{date:%s, time: %s, error: %s},\n" % (currentDate, currentTime, error)
+                    e.write(strToErrorWrite)
                 time.sleep(2)
                 continue
-            
-            temperature = f"{local_temp[0]}"
-            humidity = f"{local_humidity[0]}"
-            strHumiture = temperature + " / " + humidity
+
+            temperature = f"{local_temp[0]} F"
+            humidity = f"{local_humidity[0]} %"
+            strHumiture = f'{temperature} / {humidity}'
             time_elapsed = time_elapsed + 1
-            
-            
-            
-            lcd.setRGB(255,0,0);
+
+            if local_temp[0] > 90:
+                lcd.setRGB(255, 0, 0)
+            elif local_temp[0] < 40:
+                lcd.setRGB(255, 0, 0)
+            elif local_humidity[0] > 90:
+                lcd.setRGB(255, 0, 0)
+            elif local_humidity[0] < 30:
+                lcd.setRGB(255, 0, 0)
+            else:
+                lcd.setRGB(0,100,255);
+
+
             lcd.setCursor(0, 0)
             lcd.printout(strHumiture)
             lcd.setCursor(0, 1)
             alert = 0
             monitorSoil = 0
-            
-        
-            
-            
+
+
+
+
             print(f"Time Elapsed: {time_elapsed}/180")
             time.sleep(10)
-            
+
             strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s},\n" % (currentDate, currentTime, temperature, humidity, time_elapsed, alert)
 
             print(strToWrite)
-            
-            f = open("logs/monitoring/log.txt", "a")
-            f.write(strToWrite)
-            f.close()
-            
-            
-            
-            
+
+            with open("logs/monitoring/log.txt", "a") as f:
+                f.write(strToWrite)
         except TypeError as error:
             print(error)
-            e = open("logs/errors/log.txt", "a")
-            strToErrorWrite = "{date:%s, time: %s, error: %s},\n" % (currentDate, currentTime, error)
-            e.write(strToErrorWrite)
-            e.close()
+            with open("logs/errors/log.txt", "a") as e:
+                strToErrorWrite = "{date:%s, time: %s, error: %s},\n" % (currentDate, currentTime, error)
+                e.write(strToErrorWrite)
             continue
