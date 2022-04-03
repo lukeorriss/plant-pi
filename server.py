@@ -17,24 +17,10 @@ def get_plant_update():
     d1 = today.strftime("%d/%m/%Y")
     t1 = today.strftime("%H:%M:%S")
 
-    temp = 65.45
-    hum = 59.60
 
-    def get_temp():
-        return temp
-    def get_hum():
-        return hum
-
-    temp = temp + 2
-    hum = hum + 2
-
-    get_temperature = get_temp()
-    get_humidity = get_hum()
-
-    ldata = {"result":"success", "date": [d1], "time": [t1], "hum":str(get_humidity), "temp":str(get_temperature)}
-    f = open("./api_logs/log.txt", "a")
-    f.write("{Date:" + d1 + ", Time:" + t1 + ", Call:" + str(request) + "}\n")
-    f.close()
+    ldata = {"result":"success", "date": [d1], "time": [t1], "hum":str(59.60), "temp":str(65.45)}
+    with open("./api_logs/log.txt", "a") as f:
+        f.write("{Date:" + d1 + ", Time:" + t1 + ", Call:" + str(request) + "}\n")
     return jsonify(data=ldata)
 
 @app.route('/api/plantpi/checksystem', methods=['GET','POST'])
@@ -93,7 +79,18 @@ def shutdown_plantpi():
     ldata = {"result":"success"}
     return jsonify(data=ldata)
 
+@app.route('/api/plantpi/toggle_api', methods=['GET','POST'])
+def toggle_api_settings():
+    if request.method != "POST":
+        return False
+    
+    if request.form["log_api"]:
+        print("logapi")
 
+    with open("./settings.json", "a") as f:
+        f.write("\n")
+    ldata = {"result":"success"}
+    return jsonify(data=ldata)
 
 
 

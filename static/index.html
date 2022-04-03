@@ -150,14 +150,14 @@
                     <div class="toggle-container">
                         <p>Log Plant Pi</p>
                         <label class="switch">
-                            <input type="checkbox" id="api_log_toggle">
+                            <input type="checkbox" id="plantpi_log_toggle">
                             <span></span>
                         </label> 
                     </div> 
                     <div class="toggle-container">
                         <p>Log Errors</p>
                         <label class="switch">
-                            <input type="checkbox" id="api_log_toggle">
+                            <input type="checkbox" id="error_log_toggle">
                             <span></span>
                         </label> 
                     </div> 
@@ -175,6 +175,7 @@
     // Home
         $('#button_control').on("submit", function(e){
             e.preventDefault();
+            worker();
             // var ldata = {update_code: 777}
             // $.ajax({
             //     type: 'POST',
@@ -255,7 +256,49 @@
             $('#avg_hum').text("All Time")
             $('#avg_water').text("All Time")
         })
+
+        function changeAPISettings(ldata) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/plantpi/toggle_api',
+                data: JSON.stringify(ldata),
+                dataType: 'json',
+            })
+            .done(function(pdata){
+                return pdata
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){
+
+            })
+        }
     
+        $('#api_log_toggle').change(function(){
+            if (this.checked) {
+                state = true;
+            } else {
+                state = false;
+            }
+            var ldata = {"log_api":state}
+            changeAPISettings(ldata)
+        })
+        $('#plantpi_log_toggle').change(function(){
+            if (this.checked) {
+                state = true;
+            } else {
+                state = false;
+            }
+            var ldata = {"log_stats":state}
+            changeAPISettings(ldata)
+        })
+        $('#error_log_toggle').change(function(){
+            if (this.checked) {
+                state = true;
+            } else {
+                state = false;
+            }
+            var ldata = {"log_errors":state}
+            changeAPISettings(ldata)
+        })
     
     </script>
 </body>
