@@ -19,8 +19,6 @@ def get_plant_update():
 
 
     ldata = {"result":"success", "date": [d1], "time": [t1], "hum":str(59.60), "temp":str(65.45)}
-    with open("./api_logs/log.txt", "a") as f:
-        f.write("{Date:" + d1 + ", Time:" + t1 + ", Call:" + str(request) + "}\n")
     return jsonify(data=ldata)
 
 @app.route('/api/plantpi/checksystem', methods=['GET','POST'])
