@@ -32,29 +32,6 @@ sender = "noreply@lukeorriss.com"
 password = "6#73K7HRfT&hDED!"
 recipients = ['stuff@lukeorriss.com', 'lukeorriss@outlook.com']
 
-
-
-def getMessageDead(reason, temperature, humidity, moisture):
-    return """
-Hello, there is an issue with your Bonsai.
-
-Needs Attention: """ + reason + """
-
-Temperature: """ + temperature + """
-Humidity: """ + humidity + """
-""" + moisture + """
-"""
-
-def getMessageAlive(temperature, humidity, moisture):
-    return """
-Hello, there is an update with your Bonsai.
-
-Everything looks to be good. 
-Temperature: """ + temperature + """
-Humidity: """ + humidity + """
-""" + moisture + """
-"""
-
 def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
     context = ssl.create_default_context()
     s = smtplib.SMTP_SSL(smtp_server, smtp_port, context)
@@ -74,22 +51,12 @@ def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
     s.sendmail(sender, recipients, msg.as_string())
     s.close()
 
-def callback(channel):  
-	if GPIO.input(channel):
-		print("LED off")
-		#sendEmail("dead", "Issue with Bonsai")
-	else:
-		print("LED on")
-		sendEmail("alive", "Resolved Issue with Bonsai")
 
 GPIO.setmode(GPIO.BCM)
 
 channel = 17
 GPIO.setup(channel, GPIO.IN)
-
-# This line tells our script to keep an eye on our gpio pin and let us know when the pin goes HIGH or LOW
 GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)
-# This line asigns a function to the GPIO pin so that when the above line tells us there is a change on the pin, run this function
 GPIO.add_event_callback(channel, callback)
 
 
@@ -98,34 +65,34 @@ if __name__ == "__main__":
     running = True
     time_elapsed = 0
     while running:
-        
-        #os.system("clear")        
-        
         try:
-            get_temp = readTemp()
-            #print(get_temp)
+            date = datetime.now()
+            currentDate = date.strftime("%d/%m/%Y")
+            currentTime = date.strftime("%H:%M:%S")
+           
+            getHumiture = readTemp()
+
             try:
-                return_temp = get_temp.split(" / ")
-                ltemp = return_temp[0]
-                lhumidity = return_temp[1]
+                returnHumiture = getHumiture.split(" / ")
+                ltemp = returnHumiture[0]
+                lhumidity = returnHumiture[1]
                 local_temp = ltemp.split(" ")
                 local_humidity = lhumidity.split("%")
-                
             except AttributeError as error:
                 print("Couldn't determine split. Continuing...")
+                print(error)
                 e = open("logs/errors/log.txt", "a")
                 strToErrorWrite = "{date:%s, time: %s, error: %s},\n" % (currentDate, currentTime, error)
                 e.write(strToErrorWrite)
                 e.close()
+                time.sleep(2)
                 continue
             
             temperature = f"{local_temp[0]}"
             humidity = f"{local_humidity[0]}"
             strHumiture = temperature + " / " + humidity
             time_elapsed = time_elapsed + 1
-            date = datetime.now()
-            currentDate = date.strftime("%d/%m/%Y")
-            currentTime = date.strftime("%H:%M:%S")
+            
             
             
             lcd.setRGB(255,0,0);

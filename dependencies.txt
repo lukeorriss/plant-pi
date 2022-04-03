@@ -1,0 +1,4 @@
+sudo apt install flask
+sudo apt install mysqlclient
+sudo apt install mysql-connector
+pip3 install adafruit-blinka
