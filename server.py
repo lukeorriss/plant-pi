@@ -17,9 +17,12 @@ def get_plant_update():
     d1 = today.strftime("%d/%m/%Y")
     t1 = today.strftime("%H:%M:%S")
 
+    file1 = open('./static/bonsai/logs/monitoring/log.txt', 'r')
+    Lines = file1.readlines()
+    count = 0
     
 
-    ldata = {"result":"success", "date": [d1], "time": [t1]}
+    ldata = {"result":"success", "date": [d1], "time": [t1], "data":[Lines]}
     return jsonify(data=ldata)
 
 @app.route('/api/plantpi/checksystem', methods=['GET','POST'])
