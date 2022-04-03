@@ -16,7 +16,6 @@ import RPi.GPIO as GPIO
 import smtplib
 import ssl
 from email.mime.text import MIMEText
-from datetime import datetime
 
 # Initialise LED
 led = 6
@@ -51,7 +50,7 @@ def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
     s.sendmail(sender, recipients, msg.as_string())
     s.close()
 
-
+def readSensors():
     try:
         # Get Current Date and Time
         date = datetime.now()
@@ -91,6 +90,7 @@ def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
             lcd.setRGB(0,100,255);
             GPIO.output(led,GPIO.LOW)
 
+
         # Write Stats to screen
         lcd.setCursor(0, 0)
         lcd.printout(strHumiture)
@@ -100,6 +100,8 @@ def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
 
         with open("logs/monitoring/log.txt", "a") as f:
             f.write(strToWrite)
+
+        return strHumiture
     except TypeError as error:
         print(error)
         with open("logs/errors/log.txt", "a") as e:
