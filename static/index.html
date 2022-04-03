@@ -188,10 +188,8 @@
             })
             .done(function(pdata) {
                 var ldata = pdata.data;
-                $('#date').text("Date: " + ldata.date)
-                $('#time').text("Time: " + ldata.time)
-                $('#temp').text("Temp: " + ldata.temp + "° F")
-                $('#humidity').text("Humidity: " + ldata.hum + "%")
+                console.log(ldata)
+                console.log(ldata.data.data)
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 alert(errorThrown)
