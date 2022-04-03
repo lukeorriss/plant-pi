@@ -52,15 +52,6 @@ def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
     s.close()
 
 
-# GPIO.setmode(GPIO.BCM)
-
-# channel = 17
-# GPIO.setup(channel, GPIO.IN)
-# GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)
-# GPIO.add_event_callback(channel, callback)
-
-
-
 if __name__ == "__main__":
     running = True
     time_elapsed = 0
@@ -102,31 +93,13 @@ if __name__ == "__main__":
             alert = 0
             monitorSoil = 0
             
-            if GPIO.input(channel):
-                soil = "Moisture: Water "
-                print("Alert: On")
-                alert = 1
-                monitorSoil = 1
-                #alert()
-                GPIO.output(led, GPIO.HIGH)
-            else:
-                soil = "Moisture: Good  "
-                print("Alert: Off")
-                alert = 0
-                monitorSoil = 0
-                GPIO.output(led, GPIO.LOW)
-            print(soil)
-            lcd.printout(soil)
-
+        
             
-            if time_elapsed == 180:
-                time_elapsed = 0
-                print("Sending Update Email")
-                sendEmail("alive", "Check In: All Good", "", ltemp, lhumidity, soil)
+            
             print(f"Time Elapsed: {time_elapsed}/180")
             time.sleep(10)
             
-            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s, soil: %s},\n" % (currentDate, currentTime, temperature, humidity, time_elapsed, alert, monitorSoil)
+            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s},\n" % (currentDate, currentTime, temperature, humidity, time_elapsed, alert)
 
             print(strToWrite)
             
