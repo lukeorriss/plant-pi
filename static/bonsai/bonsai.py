@@ -52,12 +52,12 @@ def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
     s.close()
 
 
-GPIO.setmode(GPIO.BCM)
+# GPIO.setmode(GPIO.BCM)
 
-channel = 17
-GPIO.setup(channel, GPIO.IN)
-GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)
-GPIO.add_event_callback(channel, callback)
+# channel = 17
+# GPIO.setup(channel, GPIO.IN)
+# GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)
+# GPIO.add_event_callback(channel, callback)
 
 
 
