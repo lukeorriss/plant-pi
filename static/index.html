@@ -189,7 +189,11 @@
             .done(function(pdata) {
                 var ldata = pdata.data;
                 console.log(ldata)
-                console.log(JSON.parse(ldata.data))
+                
+                var data = ldata.data.split("?")
+                for (i =0; i < data.length; i++) {
+                    console.log(data[i])
+                }
 
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
