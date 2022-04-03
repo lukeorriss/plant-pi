@@ -190,6 +190,10 @@
                 var ldata = pdata.data;
                 console.log(ldata)
                 console.log(ldata.data)
+
+                length = ldata.data.length;
+
+                console.log("last", ldata.data[last-1])
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 alert(errorThrown)
