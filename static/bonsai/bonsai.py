@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
 
 
-            print(f"Time Elapsed: {time_elapsed}/180")
+            print(f"Running For: {time_elapsed * 10} seconds")
             time.sleep(10)
 
             strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s},\n" % (currentDate, currentTime, temperature, humidity, time_elapsed, alert)
