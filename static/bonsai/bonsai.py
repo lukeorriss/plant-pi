@@ -86,14 +86,19 @@ if __name__ == "__main__":
 
             if float(local_temp[0]) > 90:
                 lcd.setRGB(255, 0, 0)
+                GPIO.output(led,GPIO.HIGH)
             elif float(local_temp[0]) < 40:
                 lcd.setRGB(255, 0, 0)
+                GPIO.output(led,GPIO.HIGH)
             elif float(local_humidity[0]) > 90:
                 lcd.setRGB(255, 0, 0)
+                GPIO.output(led,GPIO.HIGH)
             elif float(local_humidity[0]) < 30:
                 lcd.setRGB(255, 0, 0)
+                GPIO.output(led,GPIO.HIGH)
             else:
                 lcd.setRGB(0,100,255);
+                GPIO.output(led,GPIO.HIGH)
 
 
             lcd.setCursor(0, 0)
