@@ -124,8 +124,9 @@ def get_plant_update():
     d1 = today.strftime("%d/%m/%Y")
     t1 = today.strftime("%H:%M:%S")
 
+    getSensorInfo = readSensors()
 
-    ldata = {"result":"success", "date": [d1], "time": [t1], "hum":humidity, "temp":temperature}
+    ldata = {"result":"success", "date": [d1], "time": [t1], "sensors":getSensorInfo}
     return jsonify(data=ldata)
 
 @app.route('/api/plantpi/checksystem', methods=['GET','POST'])
