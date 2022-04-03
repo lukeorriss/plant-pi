@@ -17,7 +17,7 @@ def get_plant_update():
     d1 = today.strftime("%d/%m/%Y")
     t1 = today.strftime("%H:%M:%S")
 
-    file1 = open('/static/bonsai/logs/monitoring/log.txt', 'r')
+    file1 = open('/var/www/plant-pi/static/bonsai/logs/monitoring/log.txt', 'r')
     Lines = file1.readlines()
     count = 0
     
