@@ -84,13 +84,13 @@ if __name__ == "__main__":
             strHumiture = f'{temperature} / {humidity}'
             time_elapsed = time_elapsed + 1
 
-            if local_temp[0] > 90:
+            if float(local_temp[0]) > 90:
                 lcd.setRGB(255, 0, 0)
-            elif local_temp[0] < 40:
+            elif float(local_temp[0]) < 40:
                 lcd.setRGB(255, 0, 0)
-            elif local_humidity[0] > 90:
+            elif float(local_humidity[0]) > 90:
                 lcd.setRGB(255, 0, 0)
-            elif local_humidity[0] < 30:
+            elif float(local_humidity[0]) < 30:
                 lcd.setRGB(255, 0, 0)
             else:
                 lcd.setRGB(0,100,255);
