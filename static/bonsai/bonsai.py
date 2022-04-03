@@ -85,23 +85,19 @@ if __name__ == "__main__":
             time_elapsed = time_elapsed + 1
 
             # Constant Checks, alerts if Temp/ Humidity too high/low
-            if float(local_temp[0]) > 90:
-                lcd.setRGB(255, 0, 0)
-                GPIO.output(led,GPIO.HIGH)
-            elif float(local_temp[0]) < 40:
-                lcd.setRGB(255, 0, 0)
-                GPIO.output(led,GPIO.HIGH)
-            elif float(local_humidity[0]) > 90:
-                lcd.setRGB(255, 0, 0)
-                GPIO.output(led,GPIO.HIGH)
-            elif float(local_humidity[0]) < 30:
+            if (
+                float(local_temp[0]) > 90
+                or float(local_temp[0]) < 40
+                or float(local_humidity[0]) > 90
+                or float(local_humidity[0]) < 30
+            ):
                 lcd.setRGB(255, 0, 0)
                 GPIO.output(led,GPIO.HIGH)
             else:
                 lcd.setRGB(0,100,255);
                 GPIO.output(led,GPIO.LOW)
 
-
+            # Write Stats to screen
             lcd.setCursor(0, 0)
             lcd.printout(strHumiture)
             lcd.setCursor(0, 1)

@@ -2,3 +2,7 @@ sudo apt install flask
 sudo apt install mysqlclient
 sudo apt install mysql-connector
 pip3 install adafruit-blinka
+pip3 install adafruit-circuitpython-dht
+sudo apt install libgpiod2
+pip3 install smbus
+
