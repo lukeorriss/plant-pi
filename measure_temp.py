@@ -12,6 +12,6 @@ def readTemp():
         return "{:.1f} F / {}% ".format(temperature_f, humidity)
         
     except RuntimeError as error:
-        pass
+        print(error)
     except Exception as error:
         pass
