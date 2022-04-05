@@ -9,7 +9,7 @@ pump = 27
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(moisture, GPIO.IN)
+GPIO.setup(moisture, GPIO.OUT)
 GPIO.setup(pump, GPIO.OUT)
 
 
