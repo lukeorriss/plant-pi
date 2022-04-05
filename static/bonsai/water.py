@@ -22,8 +22,8 @@ GPIO.setup(pump, GPIO.OUT)
 
 while True:
     if GPIO.input(moisture):
-        print("Water Detected")
+        print("no water")
         time.sleep(2)
     else:
-        print("No Water Detected")
+        print("water")
         time.sleep(2)
