@@ -13,10 +13,6 @@ GPIO.setwarnings(False)
 GPIO.setup(moisture, GPIO.IN)
 GPIO.setup(pump, GPIO.OUT)
 
-print('Reading ADS1x15 values, press Ctrl-C to quit...')
-
-print('| {0:>6} | {1:>6} | {2:>6} | {3:>6} |'.format(*range(4)))
-print('-' * 37)
 
 # Completely Wet ~ 10700
 # Completely Dry ~ 14350
