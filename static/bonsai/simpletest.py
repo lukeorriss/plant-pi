@@ -32,7 +32,7 @@ while True:
     elif currentMoisture > completelyDry:
         currentMoisture = completelyDry
 
-    print("Current Moisture: " + currentMoisture)
+    print("Current Moisture: " + str(currentMoisture))
 
     
 
