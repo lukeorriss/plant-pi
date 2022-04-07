@@ -32,8 +32,10 @@ while True:
     elif currentMoisture > completelyDry:
         currentMoisture = completelyDry
 
-    print("Current Moisture: " + str(currentMoisture))
+    moistureMinus = currentMoisture - 10700
+    print("Current Moisture: " + str(moistureMinus))
 
+    if currentMoisture 
     
 
     time.sleep(2)
