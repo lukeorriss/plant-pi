@@ -83,12 +83,15 @@ if __name__ == "__main__":
             moisturePercentage = round(100 - inversePercentage, 2)
             
             # Check if Soil Moisture is low, if it is: turn on the pump. If not, turn it off
+            watering = False
             if moisturePercentage < 10:
                 GPIO.output(pump, GPIO.HIGH)
-            if moisturePercentage > 10 and moisturePercentage < 80:
+                watering = True
+            if watering and moisturePercentage < 80:
                 GPIO.output(pump, GPIO.HIGH)
             else: 
                 GPIO.output(pump, GPIO.LOW)
+                watering = False
 
 
             # Constant Checks, alerts if Temp/ Humidity too high/low
@@ -108,7 +111,7 @@ if __name__ == "__main__":
             lcd.setCursor(0, 0)
             lcd.printout(strHumiture)
             lcd.setCursor(0, 1)
-            lcd.printout("Soil: " + str(moisturePercentage) + "%")
+            lcd.printout("Soil: " + str(moisturePercentage) + "%         ")
 
 
             time.sleep(3)
