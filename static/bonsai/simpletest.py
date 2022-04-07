@@ -34,8 +34,8 @@ while True:
 
     moistureMinus = currentMoisture - 10700
 
-    inversePercentage = (moistureMinus / 3650) * 100
-    percentage = (100 - inversePercentage)
+    inversePercentage = round((moistureMinus / 3650) * 100, 2)
+    percentage = round(100 - inversePercentage, 2)
 
     # min 0, max 3650 -- 0 = 0 %, 3650 = 100%;
     print("Current Moisture: " + str(inversePercentage) + "// " + str(percentage))
