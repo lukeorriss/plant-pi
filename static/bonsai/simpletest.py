@@ -17,11 +17,23 @@ GPIO.setup(pump, GPIO.OUT)
 # Completely Wet ~ 10700
 # Completely Dry ~ 14350
 
-
+completelyWet = 10700
+completelyDry = 14350
 
 while True:
     values = [0]*4
     for i in range(4):
         values[i] = adc.read_adc(i, gain=GAIN)
-    print('{0:>6}'.format(*values))
+    
+    currentMoisture = '{0:>6}'.format(*values)
+    
+    if currentMoisture < completelyWet:
+        currentMoisture = completelyWet
+    elif currentMoisture > completelyDry:
+        currentMoisture = completelyDry
+
+    print("Current Moisture: " + currentMoisture)
+
+    
+
     time.sleep(2)
