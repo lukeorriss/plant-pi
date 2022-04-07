@@ -34,8 +34,11 @@ while True:
 
     moistureMinus = currentMoisture - 10700
 
+    inversePercentage = (moistureMinus / 3650) * 100
+    percentage = (100 - inversePercentage)
+
     # min 0, max 3650 -- 0 = 0 %, 3650 = 100%;
-    print("Current Moisture: " + str(moistureMinus))
+    print("Current Moisture: " + str(inversePercentage) + "// " + str(percentage))
     
 
     time.sleep(2)
