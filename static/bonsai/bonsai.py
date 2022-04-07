@@ -102,21 +102,22 @@ if __name__ == "__main__":
                 lcd.setRGB(0,100,255);
 
             def moistureBar(percentage):
-                if percentage < 25:
-                    return "#   "
-                elif percentage > 25 and percentage < 50:
-                    return "##  "
-                elif percentage > 50 and percentage < 75:
-                    return "### "
-                else:
-                    return "####"
-               
+                if percentage < 20:
+                    return "#    "
+                elif percentage > 20 and percentage < 40:
+                    return "##   "
+                elif percentage > 40 and percentage < 60:
+                    return "###  "
+                elif percentage > 60 and percentage < 80:
+                    return "#### "
+                else: 
+                    return "#####"
 
             # Write Stats to screen
             lcd.setCursor(0, 0)
             lcd.printout(strHumiture)
             lcd.setCursor(0, 1)
-            lcd.printout("S: " + str(moisturePercentage) + "% [" + moistureBar(moisturePercentage) + "]")
+            lcd.printout("S: " + str(moisturePercentage) + "%[" + moistureBar(moisturePercentage) + "]")
 
 
 
