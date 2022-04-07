@@ -122,6 +122,9 @@ if __name__ == "__main__":
 
 
             # Terminal Logging
+            time.sleep(10)
+            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s}?" % (currentDate, currentTime, temperature, humidity, time_elapsed)
+            
             print(strHumiture)
             print("Current Moisture: " + str(moisturePercentage) + "% Wet")
             print(f"Running For: {time_elapsed * 10} seconds")
@@ -130,8 +133,7 @@ if __name__ == "__main__":
 
 
             # Log Output to file
-            time.sleep(10)
-            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s}?" % (currentDate, currentTime, temperature, humidity, time_elapsed)
+            
             with open("logs/monitoring/log.txt", "a") as f:
                 f.write(strToWrite)
         except TypeError as error:
