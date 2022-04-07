@@ -117,7 +117,7 @@ if __name__ == "__main__":
             lcd.setCursor(0, 0)
             lcd.printout(strHumiture)
             lcd.setCursor(0, 1)
-            lcd.printout("S: " + str(moisturePercentage) + "% [" + percentageBar + "]")
+            lcd.printout("S: " + str(moisturePercentage) + "% [" + moistureBar(moisturePercentage) + "]")
 
 
 
