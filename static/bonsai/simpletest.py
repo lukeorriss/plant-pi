@@ -33,9 +33,9 @@ while True:
         currentMoisture = completelyDry
 
     moistureMinus = currentMoisture - 10700
-    print("Current Moisture: " + str(moistureMinus))
 
-    if currentMoisture 
+    # min 0, max 3650 -- 0 = 0 %, 3650 = 100%;
+    print("Current Moisture: " + str(moistureMinus))
     
 
     time.sleep(2)
