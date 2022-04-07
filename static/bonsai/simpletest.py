@@ -37,6 +37,11 @@ while True:
     inversePercentage = round((moistureMinus / 3650) * 100, 2)
     percentage = round(100 - inversePercentage, 2)
 
+    if percentage < 10:
+        GPIO.output(pump, GPIO.HIGH)
+    else: 
+        GPIO.output(pump, GPIO.LOW)
+
     # min 0, max 3650 -- 0 = 0 %, 3650 = 100%;
     print("Current Moisture: " + str(inversePercentage) + "% Dry // " + str(percentage) + "% Wet")
     
