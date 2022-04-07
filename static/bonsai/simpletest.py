@@ -38,7 +38,7 @@ while True:
     percentage = round(100 - inversePercentage, 2)
 
     # min 0, max 3650 -- 0 = 0 %, 3650 = 100%;
-    print("Current Moisture: " + str(inversePercentage) + "// " + str(percentage))
+    print("Current Moisture: " + str(inversePercentage) + "% Dry // " + str(percentage) + "% Wet")
     
 
     time.sleep(2)
