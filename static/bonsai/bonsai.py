@@ -122,14 +122,14 @@ if __name__ == "__main__":
 
 
             # Terminal Logging
-            time.sleep(10)
             strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s}?" % (currentDate, currentTime, temperature, humidity, time_elapsed)
 
             print(strHumiture)
             print("Current Moisture: " + str(moisturePercentage) + "% Wet")
-            print(f"Running For: {time_elapsed * 10} seconds")
+            #print(f"Running For: {time_elapsed * 10} seconds")
             print("Output: " + strToWrite)
 
+            time.sleep(2)
 
 
             # Log Output to file
