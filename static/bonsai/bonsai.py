@@ -83,7 +83,7 @@ if __name__ == "__main__":
             humidity = f"{local_humidity[0]} %"
             strHumiture = f'{temperature} / {humidity}'
             time_elapsed = time_elapsed + 1
-
+            print(strHumiture)
             # Constant Checks, alerts if Temp/ Humidity too high/low
             if (
                 float(local_temp[0]) > 90
