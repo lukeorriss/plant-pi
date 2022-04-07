@@ -20,7 +20,6 @@ GPIO.setup(led, GPIO.OUT)
 pump = 27
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(moisture, GPIO.IN)
 GPIO.setup(pump, GPIO.OUT)
 completelyWet = 10700
 completelyDry = 14350
