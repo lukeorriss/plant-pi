@@ -15,7 +15,7 @@ GPIO.setup(pump, GPIO.OUT)
 
 
 # while True: 
-#     GPIO.output(pump, GPIO.HIGH)
+#     
 #     time.sleep(5)
 #     GPIO.output(pump, GPIO.LOW)
 #     time.sleep(5)

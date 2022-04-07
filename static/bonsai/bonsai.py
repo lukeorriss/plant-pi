@@ -4,11 +4,8 @@ import math
 import RGB1602
 import os
 import RPi.GPIO as GPIO
-import smtplib
-import ssl
-from email.mime.text import MIMEText
 from datetime import datetime
-
+import Adafruit_ADS1x15
 
 # Initialise
 running = False
@@ -19,37 +16,20 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(led, GPIO.OUT)
 
+# Initialise Moisture Sensor
+pump = 27
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(moisture, GPIO.IN)
+GPIO.setup(pump, GPIO.OUT)
+completelyWet = 10700
+completelyDry = 14350
+
 # Initialise Screen
 colorR = 64
 colorG = 128
 colorB = 64
 lcd = RGB1602.RGB1602(16,2)
-
-# Initialise Email
-smtp_server = "smtp.titan.email"
-smtp_port = 465
-sender = "noreply@lukeorriss.com"
-password = "6#73K7HRfT&hDED!"
-recipients = ['stuff@lukeorriss.com', 'lukeorriss@outlook.com']
-
-def sendEmail(alert_type, subject, reason, temperature, humidity, moisture):
-    context = ssl.create_default_context()
-    s = smtplib.SMTP_SSL(smtp_server, smtp_port, context)
-    s.set_debuglevel(0)
-    s.ehlo()
-    s.login(sender, password)
-
-    if alert_type == "dead":
-        body = getMessageDead(reason, temperature, humidity, moisture)
-    else:
-        body = getMessageAlive(temperature, humidity, moisture)
-
-    msg = MIMEText(body)
-    msg['From'] = "No Reply | Plant Update"
-    msg['To'] = ", ".join(recipients)
-    msg['Subject'] = subject
-    s.sendmail(sender, recipients, msg.as_string())
-    s.close()
 
 
 if __name__ == "__main__":
@@ -78,42 +58,79 @@ if __name__ == "__main__":
                     e.write(strToErrorWrite)
                 time.sleep(2)
                 continue
-
+            
+            # Temperature and Humidity Formatting
             temperature = f"{local_temp[0]} F"
             humidity = f"{local_humidity[0]} %"
             strHumiture = f'{temperature} / {humidity}'
             time_elapsed = time_elapsed + 1
-            print(strHumiture)
+            
+            
+            # Moisture Level Sensor Formatting
+            values = [0]*4
+            for i in range(4):
+                values[i] = adc.read_adc(i, gain=GAIN)
+            currentMoisture = int('{0:>6}'.format(*values))
+            
+            if currentMoisture < completelyWet:
+                currentMoisture = completelyWet
+            elif currentMoisture > completelyDry:
+                currentMoisture = completelyDry
+
+            moistureMinus = currentMoisture - 10700
+            inversePercentage = round((moistureMinus / 3650) * 100, 2)
+            moisturePercentage = round(100 - inversePercentage, 2)
+            
+            # Check if Soil Moisture is low, if it is: turn on the pump. If not, turn it off
+            if moisturePercentage < 10:
+                GPIO.output(pump, GPIO.HIGH)
+            else: 
+                GPIO.output(pump, GPIO.LOW)
+
+
             # Constant Checks, alerts if Temp/ Humidity too high/low
             if (
                 float(local_temp[0]) > 90
                 or float(local_temp[0]) < 40
                 or float(local_humidity[0]) > 90
                 or float(local_humidity[0]) < 30
+                or moisturePercentage < 10
             ):
                 lcd.setRGB(255, 0, 0)
-                GPIO.output(led,GPIO.HIGH)
             else:
                 lcd.setRGB(0,100,255);
-                GPIO.output(led,GPIO.LOW)
+
+            def moistureBar(percentage):
+                if percentage < 20:
+                    return "#"
+                elif percentage > 20 and percentage < 40:
+                    return "##"
+                elif percentage > 40 and percentage < 60:
+                    return "###"
+                elif percentage > 60 and percentage < 80:
+                    return "####"
+                else: 
+                    return "#####"
 
             # Write Stats to screen
             lcd.setCursor(0, 0)
             lcd.printout(strHumiture)
             lcd.setCursor(0, 1)
-            alert = 0
-            monitorSoil = 0
+            lcd.printout("S: " + str(moisturePercentage) + "% [" + percentageBar + "]")
 
 
 
-
+            # Terminal Logging
+            print(strHumiture)
+            print("Current Moisture: " + str(moisturePercentage) + "% Wet")
             print(f"Running For: {time_elapsed * 10} seconds")
+            print("Output: " + strToWrite)
+
+
+
+            # Log Output to file
             time.sleep(10)
-
-            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s}?" % (currentDate, currentTime, temperature, humidity, time_elapsed, alert)
-
-            print(strToWrite)
-
+            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s}?" % (currentDate, currentTime, temperature, humidity, time_elapsed)
             with open("logs/monitoring/log.txt", "a") as f:
                 f.write(strToWrite)
         except TypeError as error:

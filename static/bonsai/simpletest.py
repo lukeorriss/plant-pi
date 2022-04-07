@@ -24,7 +24,6 @@ while True:
     values = [0]*4
     for i in range(4):
         values[i] = adc.read_adc(i, gain=GAIN)
-    
     currentMoisture = int('{0:>6}'.format(*values))
     
     if currentMoisture < completelyWet:
@@ -33,17 +32,16 @@ while True:
         currentMoisture = completelyDry
 
     moistureMinus = currentMoisture - 10700
-
     inversePercentage = round((moistureMinus / 3650) * 100, 2)
-    percentage = round(100 - inversePercentage, 2)
+    moisturePercentage = round(100 - inversePercentage, 2)
 
-    if percentage < 10:
+    if moisturePercentage < 10:
         GPIO.output(pump, GPIO.HIGH)
     else: 
         GPIO.output(pump, GPIO.LOW)
 
     # min 0, max 3650 -- 0 = 0 %, 3650 = 100%;
-    print("Current Moisture: " + str(inversePercentage) + "% Dry // " + str(percentage) + "% Wet")
+    print("Current Moisture: " + str(inversePercentage) + "% Dry // " + str(moisturePercentage) + "% Wet")
     
 
     time.sleep(2)
