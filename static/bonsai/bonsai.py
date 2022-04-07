@@ -85,6 +85,8 @@ if __name__ == "__main__":
             # Check if Soil Moisture is low, if it is: turn on the pump. If not, turn it off
             if moisturePercentage < 10:
                 GPIO.output(pump, GPIO.HIGH)
+            if moisturePercentage > 10 and moisturePercentage < 80:
+                GPIO.output(pump, GPIO.HIGH)
             else: 
                 GPIO.output(pump, GPIO.LOW)
 
@@ -101,29 +103,18 @@ if __name__ == "__main__":
             else:
                 lcd.setRGB(0,100,255);
 
-            def moistureBar(percentage):
-                if percentage < 20:
-                    return "#    "
-                elif percentage > 20 and percentage < 40:
-                    return "##   "
-                elif percentage > 40 and percentage < 60:
-                    return "###  "
-                elif percentage > 60 and percentage < 80:
-                    return "#### "
-                else: 
-                    return "#####"
 
             # Write Stats to screen
             lcd.setCursor(0, 0)
             lcd.printout(strHumiture)
             lcd.setCursor(0, 1)
-            lcd.printout("S: " + str(moisturePercentage) + "%[" + moistureBar(moisturePercentage) + "]")
+            lcd.printout("Soil: " + str(moisturePercentage) + "%")
 
 
             time.sleep(3)
 
             # Terminal Logging
-            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s, alert: %s}?" % (currentDate, currentTime, temperature, humidity, time_elapsed)
+            strToWrite = "{date:%s, time:%s, temp:%s, hum:%s, stamp: %s}?" % (currentDate, currentTime, temperature, humidity, time_elapsed)
 
             print(strHumiture)
             print("Current Moisture: " + str(moisturePercentage) + "% Wet")
