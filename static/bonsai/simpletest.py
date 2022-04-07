@@ -25,7 +25,7 @@ while True:
     for i in range(4):
         values[i] = adc.read_adc(i, gain=GAIN)
     
-    currentMoisture = '{0:>6}'.format(*values)
+    currentMoisture = int('{0:>6}'.format(*values))
     
     if currentMoisture < completelyWet:
         currentMoisture = completelyWet
