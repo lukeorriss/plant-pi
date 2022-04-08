@@ -19,7 +19,7 @@ GPIO.setup(led, GPIO.OUT)
 # Initialise Moisture Sensor
 adc = Adafruit_ADS1x15.ADS1115()
 GAIN = 1
-pump = 7
+pump = 4
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(pump, GPIO.OUT)
