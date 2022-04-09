@@ -104,7 +104,7 @@ if __name__ == "__main__":
             ):
                 lcd.setRGB(255, 0, 0)
             else:
-                lcd.setRGB(0,0,168);
+                lcd.setRGB(248,248,60);
 
 
             # Write Stats to screen
